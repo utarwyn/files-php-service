@@ -1,0 +1,21 @@
+{
+    "name": "coc/medias-api",
+    "description": "Simple api to manage medias for web services.",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Utarwyn",
+            "email": "maxime.malgorn@laposte.net"
+        }
+    ],
+    "require": {
+        "bramus/router": "^1.4",
+        "vlucas/phpdotenv": "^4.1",
+        "firebase/php-jwt": "^5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}
