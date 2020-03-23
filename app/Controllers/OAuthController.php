@@ -3,12 +3,9 @@
 namespace App\Controllers;
 
 use App\Controller;
-use App\Traits\AuthTrait;
 
 class OAuthController extends Controller
 {
-    use AuthTrait;
-
     public function token()
     {
         if (!isset($_POST['grant_type']) || !isset($_POST['client_id']) ||
@@ -29,7 +26,7 @@ class OAuthController extends Controller
 
         // Generate an access token for one hour
         $this->json([
-            'token' => $this->generateToken()
+            'token' => $this->generateAuthToken()
         ]);
     }
 
@@ -55,5 +52,4 @@ class OAuthController extends Controller
 
         $this->badRequest('WRONG_CLIENT_CREDENTIALS', 'Wrong credentials');
     }
-
 }

@@ -2,8 +2,29 @@
 
 namespace App;
 
+use App\Traits\AuthTrait;
+
 class Controller
 {
+    use AuthTrait;
+
+    public function protectRoute()
+    {
+        if (!isset($_SERVER['HTTP_AUTHORIZATION'])) {
+            $this->badRequest(
+                'AUTH_NEEDED',
+                'You need to provide an access token to access this route.'
+            );
+        }
+
+        $token = str_replace('Bearer ', '', $_SERVER['HTTP_AUTHORIZATION']);
+        $decoded = $this->verifyAndDecodeAuthToken($token);
+
+        if (is_null($decoded)) {
+            http_response_code(401);
+            $this->error('AUTH_ERROR', 'Invalid or expired access token.');
+        }
+    }
 
     public function json($data)
     {
@@ -14,12 +35,19 @@ class Controller
     public function badRequest($error_code = 'BAD_REQUEST', $description = null)
     {
         http_response_code(400);
+        $this->error($error_code, $description);
+    }
+
+    public function error($error_code = 'API_ERROR', $description = null)
+    {
+        if (http_response_code() == 200) {
+            http_response_code(500);
+        }
+
         $this->json([
             'error' => $error_code,
             'description' => $description
         ]);
-
         exit();
     }
-
 }

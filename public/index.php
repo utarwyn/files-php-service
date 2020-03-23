@@ -1,6 +1,6 @@
 <?php
 
-use App\Controller;
+use App\Controllers\DocumentController;
 use App\Controllers\ErrorController;
 use App\Controllers\OAuthController;
 use Bramus\Router\Router;
@@ -19,5 +19,12 @@ $router = new Router();
 $router->set404([new ErrorController(), 'error404']);
 
 $router->post('token', [new OAuthController(), 'token']);
+$router->mount('/d', function () use ($router) {
+    $controller = new DocumentController();
+
+    $router->get('/(\w+)', [$controller, 'get']);
+    $router->post('/', [$controller, 'post']);
+    $router->delete('/(\w+)', [$controller, 'delete']);
+});
 
 $router->run();
