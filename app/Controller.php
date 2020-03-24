@@ -15,7 +15,7 @@ class Controller
 {
     use AuthTrait;
 
-    public function protectRoute()
+    protected function protectRoute()
     {
         if (!isset($_SERVER['HTTP_AUTHORIZATION'])) {
             $this->badRequest(
@@ -33,13 +33,24 @@ class Controller
         }
     }
 
-    public function badRequest($error_code = 'BAD_REQUEST', $description = 'Bad request')
+    protected function getPost()
+    {
+        $input = file_get_contents('php://input');
+
+        if (!empty($input)) {
+            return json_decode($input, true);
+        } else {
+            return $_POST;
+        }
+    }
+
+    protected function badRequest($error_code = 'BAD_REQUEST', $description = 'Bad request')
     {
         http_response_code(400);
         $this->error($error_code, $description);
     }
 
-    public function error($error_code = 'API_ERROR', $description = 'An internal error occured')
+    protected function error($error_code = 'API_ERROR', $description = 'An internal error occured')
     {
         if (http_response_code() == 200) {
             http_response_code(500);
@@ -52,7 +63,7 @@ class Controller
         exit();
     }
 
-    public function json($data)
+    protected function json($data)
     {
         header('Content-Type: application/json');
         echo json_encode($data);

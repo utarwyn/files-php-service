@@ -15,17 +15,18 @@ class OAuthController extends Controller
 {
     public function token()
     {
-        if (!isset($_POST['grant_type']) || !isset($_POST['client_id']) ||
-            !isset($_POST['client_secret'])) {
+        $post = $this->getPost();
+        if (!isset($post['grant_type']) || !isset($post['client_id']) ||
+            !isset($post['client_secret'])) {
             $this->badRequest(
                 'MISSING_PARAMETERS',
                 'You need to provide grant_type, client_id and client_secret parameters.'
             );
         }
 
-        $grantType = $_POST['grant_type'];
-        $clientId = $_POST['client_id'];
-        $clientSecret = $_POST['client_secret'];
+        $grantType = $post['grant_type'];
+        $clientId = $post['client_id'];
+        $clientSecret = $post['client_secret'];
 
         // Validate parameters
         $this->validateGrantType($grantType);
