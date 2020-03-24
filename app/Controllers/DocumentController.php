@@ -3,12 +3,16 @@
 namespace App\Controllers;
 
 use App\Controller;
+use App\Identifier\IdentifierStrategy;
+use App\Identifier\UniqueIdentifierStrategy;
 use App\Storage\Document;
 use App\Storage\DocumentNotExistsException;
 use App\Storage\FlatStorage;
 use App\Storage\Storage;
-use App\Util\IdentifierStrategy;
-use App\Util\UniqueIdentifierStrategy;
+use App\Upload\TooLargeUploadedFileException;
+use App\Upload\UploadedFile;
+use App\Upload\UploadValidator;
+use App\Upload\WrongTypeUploadedFileException;
 
 /**
  * Class DocumentController.
@@ -30,12 +34,18 @@ class DocumentController extends Controller
     private $identifierStrategy;
 
     /**
+     * @var UploadValidator the upload validator
+     */
+    private $uploadValidator;
+
+    /**
      * DocumentController constructor.
      */
     public function __construct()
     {
-        $this->identifierStrategy = new UniqueIdentifierStrategy();
         $this->storage = new FlatStorage();
+        $this->uploadValidator = new UploadValidator();
+        $this->identifierStrategy = new UniqueIdentifierStrategy();
     }
 
     /**
@@ -95,7 +105,32 @@ class DocumentController extends Controller
     public function post()
     {
         $this->protectRoute();
-        // TODO write this route
+        $this->validateFileInput();
+
+        $file = $_FILES['file'];
+
+        try {
+            $dto = new UploadedFile(
+                $file['type'], $file['tmp_name'],
+                $file['size'], $file['error']
+            );
+
+            $this->uploadValidator->validate($dto);
+            $identifier = $this->identifierStrategy->generate();
+
+            $this->storage->storeDocument($identifier, $dto);
+            echo $identifier;
+        } catch (TooLargeUploadedFileException $e) {
+            $this->badRequest(
+                'UPLOADED_FILE_TOO_LARGE',
+                sprintf('The file exceed the upload limit (%s).', $e->getReadableLimit())
+            );
+        } catch (WrongTypeUploadedFileException $e) {
+            $this->badRequest(
+                'UPLOADED_FILE_WRONG_TYPE',
+                sprintf('The type %s is not allowed.', $e->getFileType())
+            );
+        }
     }
 
     public function delete($identifier)
@@ -110,6 +145,26 @@ class DocumentController extends Controller
             $this->notFound(
                 'UNKNOWN_DOCUMENT',
                 sprintf('File %s does not exist.', $e->getIdentifier())
+            );
+        }
+    }
+
+    /**
+     * Validate the uploaded file parameters.
+     */
+    private function validateFileInput()
+    {
+        if (!isset($_FILES['file'])) {
+            $this->badRequest(
+                'NO_UPLOADED_FILE',
+                'The request does not contain a file.'
+            );
+        }
+        if (!isset($_FILES['file']['type']) || !isset($_FILES['file']['tmp_name'])
+            || !isset($_FILES['file']['size']) || !isset($_FILES['file']['error'])) {
+            $this->badRequest(
+                'UPLOADED_FILE_INVALID',
+                'The uploaded file object is invalid.'
             );
         }
     }

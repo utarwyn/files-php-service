@@ -62,9 +62,9 @@ class FlatStorage implements Storage
     /**
      * @inheritDoc
      */
-    public function storeDocument($document)
+    public function storeDocument($identifier, $document)
     {
-        // TODO: Implement createDocument() method.
+        move_uploaded_file($document->getTmpName(), $this->getFilePath($identifier));
     }
 
     /**

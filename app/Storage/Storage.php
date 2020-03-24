@@ -2,6 +2,8 @@
 
 namespace App\Storage;
 
+use App\Upload\UploadedFile;
+
 /**
  * Interface Storage.
  *
@@ -21,12 +23,13 @@ interface Storage
     public function getDocument($identifier);
 
     /**
-     * Store a new document and generate an identifier for it.
+     * Store a new file and generate an identifier for it.
      *
-     * @param $document string content of the document to store
+     * @param $identifier string document identifier
+     * @param $document UploadedFile uploaded file to store
      * @return Document generated identifier of the document
      */
-    public function storeDocument($document);
+    public function storeDocument($identifier, $document);
 
     /**
      * Delete a document from the storage.
