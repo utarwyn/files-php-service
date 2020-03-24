@@ -103,7 +103,14 @@ class DocumentController extends Controller
         $this->protectRoute();
         $this->validateIdentifier($identifier);
 
-        // TODO write this route
-        $this->json(['identifier' => $identifier]);
+        try {
+            $this->storage->deleteDocument($identifier);
+            http_response_code(204);
+        } catch (DocumentNotExistsException $e) {
+            $this->notFound(
+                'UNKNOWN_DOCUMENT',
+                sprintf('File %s does not exist.', $e->getIdentifier())
+            );
+        }
     }
 }

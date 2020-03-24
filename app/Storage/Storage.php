@@ -32,7 +32,6 @@ interface Storage
      * Delete a document from the storage.
      *
      * @param $identifier string identifier of the document to delete
-     * @return boolean true if deleted, false otherwise
      * @throws DocumentNotExistsException thrown if the document does not exist in the storage
      */
     public function deleteDocument($identifier);

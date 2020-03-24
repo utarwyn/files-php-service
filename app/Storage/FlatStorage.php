@@ -72,6 +72,12 @@ class FlatStorage implements Storage
      */
     public function deleteDocument($identifier)
     {
-        // TODO: Implement deleteDocument() method.
+        $path = $this->getFilePath($identifier);
+
+        if (file_exists($path)) {
+            unlink($path);
+        } else {
+            throw new DocumentNotExistsException($identifier);
+        }
     }
 }
