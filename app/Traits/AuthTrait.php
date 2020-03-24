@@ -6,6 +6,13 @@ use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\SignatureInvalidException;
 
+/**
+ * Methods to manage an authentication system in a controller.
+ *
+ * @package App\Traits
+ * @author Maxime Malgorn <maxime.malgorn@laposte.net>
+ * @since 1.0.0
+ */
 trait AuthTrait
 {
     public function generateAuthToken($duration = 3600)
@@ -17,6 +24,11 @@ trait AuthTrait
         ], $this->getJWTSecretKey());
     }
 
+    private function getJWTSecretKey()
+    {
+        return getenv('JWT_SECRET_TOKEN');
+    }
+
     public function verifyAndDecodeAuthToken($jwt)
     {
         try {
@@ -26,10 +38,5 @@ trait AuthTrait
         } catch (ExpiredException $e) {
             return null;
         }
-    }
-
-    private function getJWTSecretKey()
-    {
-        return getenv('JWT_SECRET_TOKEN');
     }
 }

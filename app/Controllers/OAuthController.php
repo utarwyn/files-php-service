@@ -4,6 +4,13 @@ namespace App\Controllers;
 
 use App\Controller;
 
+/**
+ * Class OAuthController.
+ *
+ * @package App\Controllers
+ * @author Maxime Malgorn <maxime.malgorn@laposte.net>
+ * @since 1.0.0
+ */
 class OAuthController extends Controller
 {
     public function token()
@@ -32,8 +39,7 @@ class OAuthController extends Controller
 
     private function validateGrantType($grantType)
     {
-        if ($grantType !== 'client_credentials')
-        {
+        if ($grantType !== 'client_credentials') {
             $this->badRequest('WRONG_GRANT_TYPE', "grant_type must be 'client_credentials'");
         }
     }
