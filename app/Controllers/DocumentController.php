@@ -119,7 +119,7 @@ class DocumentController extends Controller
             $identifier = $this->identifierStrategy->generate();
 
             $this->storage->storeDocument($identifier, $dto);
-            echo $identifier;
+            $this->json(['identifier' => $identifier]);
         } catch (TooLargeUploadedFileException $e) {
             $this->badRequest(
                 'UPLOADED_FILE_TOO_LARGE',

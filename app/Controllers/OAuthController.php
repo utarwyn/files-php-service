@@ -33,9 +33,7 @@ class OAuthController extends Controller
         $this->validateSecrets($clientId, $clientSecret);
 
         // Generate an access token for one hour
-        $this->json([
-            'token' => $this->generateAuthToken()
-        ]);
+        $this->json(['token' => $this->generateAuthToken()]);
     }
 
     private function validateGrantType($grantType)
