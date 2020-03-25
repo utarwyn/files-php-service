@@ -18,18 +18,15 @@ class Controller
     protected function protectRoute()
     {
         if (!isset($_SERVER['HTTP_AUTHORIZATION'])) {
-            $this->badRequest(
-                'AUTH_NEEDED',
-                'You need to provide an access token to access this route.'
-            );
+            $this->authError('AUTH_ERROR',
+                'This resource is protected. An authorization is required to get access.');
         }
 
         $token = str_replace('Bearer ', '', $_SERVER['HTTP_AUTHORIZATION']);
         $decoded = $this->verifyAndDecodeAuthToken($token);
 
         if (is_null($decoded)) {
-            http_response_code(401);
-            $this->error('AUTH_ERROR', 'Invalid or expired access token.');
+            $this->authError('AUTH_ERROR', 'Invalid or expired access token.');
         }
     }
 
@@ -42,6 +39,12 @@ class Controller
         } else {
             return $_POST;
         }
+    }
+
+    protected function authError($error_code = 'AUTH_ERROR', $description = 'Authorization error')
+    {
+        http_response_code(401);
+        $this->error($error_code, $description);
     }
 
     protected function badRequest($error_code = 'BAD_REQUEST', $description = 'Bad request')

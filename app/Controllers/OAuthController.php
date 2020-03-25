@@ -20,7 +20,7 @@ class OAuthController extends Controller
             !isset($post['client_secret'])) {
             $this->badRequest(
                 'MISSING_PARAMETERS',
-                'You need to provide grant_type, client_id and client_secret parameters.'
+                'Parameters grant_type, client_id and client_secret parameters must be provided.'
             );
         }
 
