@@ -41,27 +41,23 @@ class Controller
         }
     }
 
-    protected function authError($error_code = 'AUTH_ERROR', $description = 'Authorization error')
+    protected function authError($name = 'AUTH_ERROR', $message = 'Authorization error')
     {
-        http_response_code(401);
-        $this->error($error_code, $description);
+        $this->error(401, $name, $message);
     }
 
-    protected function badRequest($error_code = 'BAD_REQUEST', $description = 'Bad request')
+    protected function badRequest($name = 'BAD_REQUEST', $message = 'Bad request')
     {
-        http_response_code(400);
-        $this->error($error_code, $description);
+        $this->error(400, $name, $message);
     }
 
-    protected function error($error_code = 'API_ERROR', $description = 'An internal error occured')
+    protected function error($statusCode = 500, $name = 'API_ERROR', $message = 'An internal error occured')
     {
-        if (http_response_code() == 200) {
-            http_response_code(500);
-        }
+        http_response_code($statusCode);
 
         $this->json([
-            'error' => $error_code,
-            'description' => $description
+            'error' => $name,
+            'message' => $message
         ]);
         exit();
     }
@@ -72,9 +68,8 @@ class Controller
         echo json_encode($data);
     }
 
-    public function notFound($error_code = 'NOT_FOUND', $description = 'Resource not found')
+    public function notFound($name = 'NOT_FOUND', $message = 'Resource not found')
     {
-        http_response_code(404);
-        $this->error($error_code, $description);
+        $this->error(404, $name, $message);
     }
 }
