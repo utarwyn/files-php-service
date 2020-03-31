@@ -1,0 +1,8 @@
+parameters:
+    tasks:
+        composer: ~
+        phpcs:
+            standard: PSR2
+            ignore_patterns:
+                - /public/
+        phplint: ~

@@ -8,9 +8,10 @@ use UnexpectedValueException;
  * Class AuthTokenInvalidException.
  * Thrown when a token strategy object cannot decode an authorization token.
  *
+ * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
+ * @license MIT
  * @package MediasService\Auth\Token
- * @author Maxime Malgorn <maxime.malgorn@laposte.net>
- * @since 1.0.0
+ * @since   1.0.0
  */
 class AuthTokenInvalidException extends UnexpectedValueException
 {

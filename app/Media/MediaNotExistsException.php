@@ -8,9 +8,10 @@ use UnexpectedValueException;
  * Class MediaNotExistsException.
  * Thrown when a media cannot be found in a storage.
  *
+ * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
+ * @license MIT
  * @package MediasService\Media
- * @author Maxime Malgorn <maxime.malgorn@laposte.net>
- * @since 1.0.0
+ * @since   1.0.0
  */
 class MediaNotExistsException extends UnexpectedValueException
 {

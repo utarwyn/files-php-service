@@ -7,9 +7,10 @@ use Ramsey\Uuid\Uuid;
 /**
  * Class UniqueIdentifierStrategy.
  *
+ * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
+ * @license MIT
  * @package MediasService\Identifier
- * @author Maxime Malgorn <maxime.malgorn@laposte.net>
- * @since 1.0.0
+ * @since   1.0.0
  */
 class UniqueIdentifierStrategy implements IdentifierStrategy
 {

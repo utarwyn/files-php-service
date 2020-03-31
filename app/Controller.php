@@ -8,9 +8,10 @@ use MediasService\Auth\Token\AuthTokenStrategyFactory;
 /**
  * Main Controller, defines basic behaviors for others controllers.
  *
+ * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
+ * @license MIT
  * @package MediasService
- * @author Maxime Malgorn <maxime.malgorn@laposte.net>
- * @since 1.0.0
+ * @since   1.0.0
  */
 class Controller
 {
@@ -19,8 +20,10 @@ class Controller
     protected function protectRoute()
     {
         if (!isset($_SERVER['HTTP_AUTHORIZATION'])) {
-            $this->authError('AUTH_ERROR',
-                'This resource is protected. An authorization is required to get access.');
+            $this->authError(
+                'AUTH_ERROR',
+                'This resource is protected. An authorization is required to get access.'
+            );
         }
 
         $token = str_replace('Bearer ', '', $_SERVER['HTTP_AUTHORIZATION']);

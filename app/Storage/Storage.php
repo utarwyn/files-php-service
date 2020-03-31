@@ -9,9 +9,10 @@ use MediasService\Upload\UploadedFile;
 /**
  * Interface Storage.
  *
+ * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
+ * @license MIT
  * @package MediasService\Storage
- * @author Maxime Malgorn <maxime.malgorn@laposte.net>
- * @since 1.0.0
+ * @since   1.0.0
  */
 interface Storage
 {

@@ -15,9 +15,10 @@ use MediasService\Upload\WrongTypeUploadedFileException;
 /**
  * Class MediaController.
  *
+ * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
+ * @license MIT
  * @package MediasService\Media
- * @author Maxime Malgorn <maxime.malgorn@laposte.net>
- * @since 1.0.0
+ * @since   1.0.0
  */
 class MediaController extends Controller
 {
@@ -109,8 +110,10 @@ class MediaController extends Controller
 
         try {
             $dto = new UploadedFile(
-                $file['type'], $file['tmp_name'],
-                $file['size'], $file['error']
+                $file['type'],
+                $file['tmp_name'],
+                $file['size'],
+                $file['error']
             );
 
             $this->uploadValidator->validate($dto);

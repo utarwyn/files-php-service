@@ -5,9 +5,10 @@ namespace MediasService\Upload;
 /**
  * Class UploadedFile.
  *
+ * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
+ * @license MIT
  * @package MediasService\Upload
- * @author Maxime Malgorn <maxime.malgorn@laposte.net>
- * @since 1.0.0
+ * @since   1.0.0
  */
 class UploadedFile
 {

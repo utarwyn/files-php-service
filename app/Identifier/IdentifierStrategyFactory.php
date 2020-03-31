@@ -5,9 +5,10 @@ namespace MediasService\Identifier;
 /**
  * Class IdentifierStrategyFactory.
  *
+ * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
+ * @license MIT
  * @package MediasService\Identifier
- * @author Maxime Malgorn <maxime.malgorn@laposte.net>
- * @since 1.0.0
+ * @since   1.0.0
  */
 class IdentifierStrategyFactory
 {

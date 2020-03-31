@@ -5,9 +5,10 @@ namespace MediasService\Media;
 /**
  * Represents a media with a type, a path and an identifier.
  *
+ * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
+ * @license MIT
  * @package MediasService\Media
- * @author Maxime Malgorn <maxime.malgorn@laposte.net>
- * @since 1.0.0
+ * @since   1.0.0
  */
 class Media
 {

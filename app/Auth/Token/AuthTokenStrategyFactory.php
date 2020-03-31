@@ -5,9 +5,10 @@ namespace MediasService\Auth\Token;
 /**
  * Class AuthTokenStrategyFactory.
  *
+ * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
+ * @license MIT
  * @package MediasService\Auth\Token
- * @author Maxime Malgorn <maxime.malgorn@laposte.net>
- * @since 1.0.0
+ * @since   1.0.0
  */
 class AuthTokenStrategyFactory
 {
