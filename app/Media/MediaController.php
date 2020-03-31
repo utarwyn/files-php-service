@@ -161,8 +161,11 @@ class MediaController extends Controller
                 'The request does not contain a file.'
             );
         }
-        if (!isset($_FILES['file']['type']) || !isset($_FILES['file']['tmp_name'])
-            || !isset($_FILES['file']['size']) || !isset($_FILES['file']['error'])) {
+
+        if (
+            !isset($_FILES['file']['type']) || !isset($_FILES['file']['tmp_name'])
+            || !isset($_FILES['file']['size']) || !isset($_FILES['file']['error'])
+        ) {
             $this->badRequest(
                 'UPLOADED_FILE_INVALID',
                 'The uploaded file object is invalid.'

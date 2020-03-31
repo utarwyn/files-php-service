@@ -18,8 +18,10 @@ class AuthController extends Controller
     public function token()
     {
         $post = $this->getPost();
-        if (!isset($post['grant_type']) || !isset($post['client_id']) ||
-            !isset($post['client_secret'])) {
+        if (
+            !isset($post['grant_type']) || !isset($post['client_id']) ||
+            !isset($post['client_secret'])
+        ) {
             $this->badRequest(
                 'MISSING_PARAMETERS',
                 'Parameters grant_type, client_id and client_secret parameters must be provided.'

@@ -2,7 +2,9 @@ parameters:
     tasks:
         composer: ~
         phpcs:
-            standard: PSR2
+            standard: PSR12
             ignore_patterns:
-                - /public/
+                - /public
+                - /test
         phplint: ~
+        phpunit: ~
