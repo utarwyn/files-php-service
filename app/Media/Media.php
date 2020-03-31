@@ -1,38 +1,38 @@
 <?php
 
-namespace App\Storage;
+namespace MediasService\Media;
 
 /**
- * Represents a document with a type, a path and an identifier.
+ * Represents a media with a type, a path and an identifier.
  *
- * @package App\Storage
+ * @package MediasService\Media
  * @author Maxime Malgorn <maxime.malgorn@laposte.net>
  * @since 1.0.0
  */
-class Document
+class Media
 {
     /**
-     * @var string content of the document
+     * @var string content of the media
      */
     private $content;
 
     /**
-     * @var string identifier of the document
+     * @var string identifier of the media
      */
     private $identifier;
 
     /**
-     * @var string absolute path of the document
+     * @var string absolute path of the media
      */
     private $path;
 
     /**
-     * @var string mime (type) of the document
+     * @var string mime (type) of the media
      */
     private $type;
 
     /**
-     * Document constructor.
+     * Media constructor.
      *
      * @param $identifier string
      * @param $path string

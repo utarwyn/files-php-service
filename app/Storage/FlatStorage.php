@@ -1,25 +1,28 @@
 <?php
 
-namespace App\Storage;
+namespace MediasService\Storage;
+
+use MediasService\Media\Media;
+use MediasService\Media\MediaNotExistsException;
 
 /**
  * Class FlatStorage.
  *
- * @package App\Storage
+ * @package MediasService\Storage
  * @author Maxime Malgorn <maxime.malgorn@laposte.net>
  * @since 1.0.0
  */
 class FlatStorage implements Storage
 {
     /**
-     * @var string root directory for documents and dictionary
+     * @var string root directory for medias
      */
     private $baseDir;
 
     /**
      * FlatStorage constructor.
      */
-    public function __construct()
+    function __construct()
     {
         $this->baseDir = BASE . DS . 'storage';
 
@@ -32,7 +35,7 @@ class FlatStorage implements Storage
     /**
      * @inheritDoc
      */
-    public function getDocument($identifier)
+    public function getMedia($identifier)
     {
         $path = $this->getFilePath($identifier);
 
@@ -42,17 +45,17 @@ class FlatStorage implements Storage
             $content = fread($handle, filesize($path));
             fclose($handle);
 
-            return new Document($identifier, $path, $type, $content);
+            return new Media($identifier, $path, $type, $content);
         } else {
-            throw new DocumentNotExistsException($identifier);
+            throw new MediaNotExistsException($identifier);
         }
     }
 
     /**
-     * Retreive a file path based on the document identifier.
+     * Retreive a file path based on the media identifier.
      *
-     * @param $identifier string identifier of the document to retreive
-     * @return string file path of the document
+     * @param $identifier string identifier of the media to retreive
+     * @return string file path of the media
      */
     private function getFilePath($identifier)
     {
@@ -62,22 +65,22 @@ class FlatStorage implements Storage
     /**
      * @inheritDoc
      */
-    public function storeDocument($identifier, $document)
+    public function storeMedia($identifier, $media)
     {
-        move_uploaded_file($document->getTmpName(), $this->getFilePath($identifier));
+        move_uploaded_file($media->getTmpName(), $this->getFilePath($identifier));
     }
 
     /**
      * @inheritDoc
      */
-    public function deleteDocument($identifier)
+    public function deleteMedia($identifier)
     {
         $path = $this->getFilePath($identifier);
 
         if (file_exists($path)) {
             unlink($path);
         } else {
-            throw new DocumentNotExistsException($identifier);
+            throw new MediaNotExistsException($identifier);
         }
     }
 }

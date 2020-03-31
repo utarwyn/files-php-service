@@ -1,9 +1,9 @@
 <?php
 
-use App\Controller;
-use App\Controllers\DocumentController;
-use App\Controllers\OAuthController;
 use Bramus\Router\Router;
+use MediasService\Auth\AuthController;
+use MediasService\Controller;
+use MediasService\Media\MediaController;
 
 define('DS', DIRECTORY_SEPARATOR);
 define('BASE', dirname(__DIR__));
@@ -16,11 +16,11 @@ $dotenv->load();
 
 // Load router with custom routes
 $router = new Router();
-$controller = new DocumentController();
+$controller = new MediaController();
 
 $router->set404([new Controller(), 'notFound']);
 
-$router->post('/token', [new OAuthController(), 'token']);
+$router->post('/token', [new AuthController(), 'token']);
 
 $router->get('/([\w-]+)', [$controller, 'get']);
 $router->post('/', [$controller, 'post']);

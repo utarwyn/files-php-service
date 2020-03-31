@@ -1,35 +1,33 @@
 <?php
 
-namespace App\Controllers;
+namespace MediasService\Media;
 
-use App\Controller;
-use App\Identifier\IdentifierStrategy;
-use App\Identifier\UniqueIdentifierStrategy;
-use App\Storage\Document;
-use App\Storage\DocumentNotExistsException;
-use App\Storage\FlatStorage;
-use App\Storage\Storage;
-use App\Upload\TooLargeUploadedFileException;
-use App\Upload\UploadedFile;
-use App\Upload\UploadValidator;
-use App\Upload\WrongTypeUploadedFileException;
+use MediasService\Controller;
+use MediasService\Identifier\IdentifierStrategy;
+use MediasService\Identifier\IdentifierStrategyFactory;
+use MediasService\Storage\Storage;
+use MediasService\Storage\StorageFactory;
+use MediasService\Upload\TooLargeUploadedFileException;
+use MediasService\Upload\UploadedFile;
+use MediasService\Upload\UploadValidator;
+use MediasService\Upload\WrongTypeUploadedFileException;
 
 /**
- * Class DocumentController.
+ * Class MediaController.
  *
- * @package App\Controllers
+ * @package MediasService\Media
  * @author Maxime Malgorn <maxime.malgorn@laposte.net>
  * @since 1.0.0
  */
-class DocumentController extends Controller
+class MediaController extends Controller
 {
     /**
-     * @var Storage storage wrapper to manage documents
+     * @var Storage storage wrapper to manage medias
      */
     private $storage;
 
     /**
-     * @var IdentifierStrategy strategy class to manage document identifiers
+     * @var IdentifierStrategy strategy class to manage media identifiers
      */
     private $identifierStrategy;
 
@@ -39,31 +37,31 @@ class DocumentController extends Controller
     private $uploadValidator;
 
     /**
-     * DocumentController constructor.
+     * MediaController constructor.
      */
     public function __construct()
     {
-        $this->storage = new FlatStorage();
+        $this->storage = StorageFactory::create();
         $this->uploadValidator = new UploadValidator();
-        $this->identifierStrategy = new UniqueIdentifierStrategy();
+        $this->identifierStrategy = IdentifierStrategyFactory::create();
     }
 
     /**
-     * Manage GET requests to retreive a document.
-     * @param $identifier string identifier of document
+     * Manage GET requests to retreive a media.
+     * @param $identifier string identifier of media
      */
     public function get($identifier)
     {
         $this->validateIdentifier($identifier);
 
         try {
-            $document = $this->storage->getDocument($identifier);
+            $media = $this->storage->getMedia($identifier);
 
-            header('Content-Type: ' . $document->getType());
-            $this->sendCacheHeader($document);
+            header('Content-Type: ' . $media->getType());
+            $this->sendCacheHeader($media);
 
-            echo $document->getContent();
-        } catch (DocumentNotExistsException $e) {
+            echo $media->getContent();
+        } catch (MediaNotExistsException $e) {
             $this->notFound(
                 'UNKNOWN_DOCUMENT',
                 sprintf('File %s does not exist.', $e->getIdentifier())
@@ -85,16 +83,16 @@ class DocumentController extends Controller
     }
 
     /**
-     * Send cache headers if needed when displaying a document.
-     * @param $document Document document
+     * Send cache headers if needed when displaying a media.
+     * @param $media Media media
      */
-    private function sendCacheHeader($document)
+    private function sendCacheHeader($media)
     {
-        $mtime = @filemtime($document->getPath());
+        $mtime = @filemtime($media->getPath());
 
         if ($mtime > 0) {
             $gmt_mtime = gmdate('D, d M Y H:i:s', $mtime) . ' GMT';
-            $etag = sprintf('%08x-%08x', crc32($document->getPath()), $mtime);
+            $etag = sprintf('%08x-%08x', crc32($media->getPath()), $mtime);
 
             header('ETag: "' . $etag . '"');
             header('Last-Modified: ' . $gmt_mtime);
@@ -118,7 +116,7 @@ class DocumentController extends Controller
             $this->uploadValidator->validate($dto);
             $identifier = $this->identifierStrategy->generate();
 
-            $this->storage->storeDocument($identifier, $dto);
+            $this->storage->storeMedia($identifier, $dto);
             $this->json(['identifier' => $identifier]);
         } catch (TooLargeUploadedFileException $e) {
             $this->badRequest(
@@ -139,9 +137,9 @@ class DocumentController extends Controller
         $this->validateIdentifier($identifier);
 
         try {
-            $this->storage->deleteDocument($identifier);
+            $this->storage->deleteMedia($identifier);
             http_response_code(204);
-        } catch (DocumentNotExistsException $e) {
+        } catch (MediaNotExistsException $e) {
             $this->notFound(
                 'UNKNOWN_DOCUMENT',
                 sprintf('File %s does not exist.', $e->getIdentifier())

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Upload;
+namespace MediasService\Upload;
 
 use UnexpectedValueException;
 
 /**
  * Class TooLargeUploadedFileException.
  *
- * @package App\Storage\Exceptions
+ * @package MediasService\Upload
  * @author Maxime Malgorn <maxime.malgorn@laposte.net>
  * @since 1.0.0
  */

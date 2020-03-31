@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Identifier;
+namespace MediasService\Identifier;
 
 use Ramsey\Uuid\Uuid;
 
 /**
  * Class UniqueIdentifierStrategy.
  *
- * @package App\Util
+ * @package MediasService\Identifier
  * @author Maxime Malgorn <maxime.malgorn@laposte.net>
  * @since 1.0.0
  */

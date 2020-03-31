@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Upload;
+namespace MediasService\Upload;
 
 /**
  * Class UploadedFile.
  *
- * @package App\Storage
+ * @package MediasService\Upload
  * @author Maxime Malgorn <maxime.malgorn@laposte.net>
  * @since 1.0.0
  */

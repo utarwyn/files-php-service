@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Controllers;
+namespace MediasService\Auth;
 
-use App\Controller;
+use MediasService\Auth\Token\AuthTokenStrategyFactory;
+use MediasService\Controller;
 
 /**
- * Class OAuthController.
+ * Class AuthController.
  *
- * @package App\Controllers
+ * @package MediasService\Auth
  * @author Maxime Malgorn <maxime.malgorn@laposte.net>
  * @since 1.0.0
  */
-class OAuthController extends Controller
+class AuthController extends Controller
 {
     public function token()
     {
@@ -33,7 +34,7 @@ class OAuthController extends Controller
         $this->validateSecrets($clientId, $clientSecret);
 
         // Generate an access token for one hour
-        $this->json(['token' => $this->generateAuthToken()]);
+        $this->json(['token' => AuthTokenStrategyFactory::create()->generate()]);
     }
 
     private function validateGrantType($grantType)

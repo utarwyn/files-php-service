@@ -1,19 +1,20 @@
 <?php
 
-namespace App;
+namespace MediasService;
 
-use App\Traits\AuthTrait;
+use MediasService\Auth\Token\AuthTokenInvalidException;
+use MediasService\Auth\Token\AuthTokenStrategyFactory;
 
 /**
  * Main Controller, defines basic behaviors for others controllers.
  *
- * @package App
+ * @package MediasService
  * @author Maxime Malgorn <maxime.malgorn@laposte.net>
  * @since 1.0.0
  */
 class Controller
 {
-    use AuthTrait;
+    use HttpErrorTrait;
 
     protected function protectRoute()
     {
@@ -23,9 +24,10 @@ class Controller
         }
 
         $token = str_replace('Bearer ', '', $_SERVER['HTTP_AUTHORIZATION']);
-        $decoded = $this->verifyAndDecodeAuthToken($token);
 
-        if (is_null($decoded)) {
+        try {
+            AuthTokenStrategyFactory::create()->decode($token);
+        } catch (AuthTokenInvalidException $e) {
             $this->authError('AUTH_ERROR', 'Invalid or expired access token.');
         }
     }
@@ -41,35 +43,9 @@ class Controller
         }
     }
 
-    protected function authError($name = 'AUTH_ERROR', $message = 'Authorization error')
-    {
-        $this->error(401, $name, $message);
-    }
-
-    protected function badRequest($name = 'BAD_REQUEST', $message = 'Bad request')
-    {
-        $this->error(400, $name, $message);
-    }
-
-    protected function error($statusCode = 500, $name = 'API_ERROR', $message = 'An internal error occured')
-    {
-        http_response_code($statusCode);
-
-        $this->json([
-            'error' => $name,
-            'message' => $message
-        ]);
-        exit();
-    }
-
     protected function json($data)
     {
         header('Content-Type: application/json');
         echo json_encode($data);
-    }
-
-    public function notFound($name = 'NOT_FOUND', $message = 'Resource not found')
-    {
-        $this->error(404, $name, $message);
     }
 }
