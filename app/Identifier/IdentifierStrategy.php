@@ -1,13 +1,13 @@
 <?php
 
-namespace MediasService\Identifier;
+namespace FilesService\Identifier;
 
 /**
  * Interface IdentifierStrategy.
  *
  * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
  * @license MIT
- * @package MediasService\Identifier
+ * @package FilesService\Identifier
  * @since   1.0.0
  */
 interface IdentifierStrategy

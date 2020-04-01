@@ -1,6 +1,6 @@
 {
-  "name": "utarwyn/medias-php-service",
-  "description": "Simple PHP service to manage web-based medias.",
+  "name": "utarwyn/files-php-service",
+  "description": "Simple PHP service to manage web-based files.",
   "license": "MIT",
   "type": "project",
   "authors": [
@@ -20,12 +20,12 @@
   },
   "autoload": {
     "psr-4": {
-      "MediasService\\": "app/"
+      "FilesService\\": "app/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "MediasServiceTest\\": "test/"
+      "FilesServiceTest\\": "test/"
     }
   },
   "require-dev": {

@@ -1,13 +1,13 @@
 <?php
 
-namespace MediasService\Upload;
+namespace FilesService\Upload;
 
 /**
  * Class UploadedFile.
  *
  * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
  * @license MIT
- * @package MediasService\Upload
+ * @package FilesService\Upload
  * @since   1.0.0
  */
 class UploadedFile

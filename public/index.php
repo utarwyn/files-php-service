@@ -1,9 +1,9 @@
 <?php
 
 use Bramus\Router\Router;
-use MediasService\Auth\AuthController;
-use MediasService\Controller;
-use MediasService\Media\MediaController;
+use FilesService\Auth\AuthController;
+use FilesService\Controller;
+use FilesService\File\FileController;
 
 define('DS', DIRECTORY_SEPARATOR);
 define('BASE', dirname(__DIR__));
@@ -16,7 +16,7 @@ $dotenv->load();
 
 // Load router with custom routes
 $router = new Router();
-$controller = new MediaController();
+$controller = new FileController();
 
 $router->set404([new Controller(), 'notFound']);
 

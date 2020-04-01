@@ -1,6 +1,6 @@
 <?php
 
-namespace MediasService\Auth\Token;
+namespace FilesService\Auth\Token;
 
 use UnexpectedValueException;
 
@@ -10,7 +10,7 @@ use UnexpectedValueException;
  *
  * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
  * @license MIT
- * @package MediasService\Auth\Token
+ * @package FilesService\Auth\Token
  * @since   1.0.0
  */
 class AuthTokenInvalidException extends UnexpectedValueException

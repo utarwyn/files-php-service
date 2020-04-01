@@ -1,13 +1,13 @@
 <?php
 
-namespace MediasService\Storage;
+namespace FilesService\Storage;
 
 /**
  * Class StorageFactory.
  *
  * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
  * @license MIT
- * @package MediasService\Storage
+ * @package FilesService\Storage
  * @since   1.0.0
  */
 class StorageFactory

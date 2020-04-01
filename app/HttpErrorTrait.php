@@ -1,13 +1,13 @@
 <?php
 
-namespace MediasService;
+namespace FilesService;
 
 /**
  * Methods to send HTTP errors with a custom body.
  *
  * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
  * @license MIT
- * @package MediasService
+ * @package FilesService
  * @since   1.0.0
  */
 trait HttpErrorTrait

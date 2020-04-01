@@ -1,6 +1,6 @@
 <?php
 
-namespace MediasService\Identifier;
+namespace FilesService\Identifier;
 
 use Ramsey\Uuid\Uuid;
 
@@ -9,7 +9,7 @@ use Ramsey\Uuid\Uuid;
  *
  * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
  * @license MIT
- * @package MediasService\Identifier
+ * @package FilesService\Identifier
  * @since   1.0.0
  */
 class UniqueIdentifierStrategy implements IdentifierStrategy

@@ -1,16 +1,16 @@
 <?php
 
-namespace MediasService;
+namespace FilesService;
 
-use MediasService\Auth\Token\AuthTokenInvalidException;
-use MediasService\Auth\Token\AuthTokenStrategyFactory;
+use FilesService\Auth\Token\AuthTokenInvalidException;
+use FilesService\Auth\Token\AuthTokenStrategyFactory;
 
 /**
  * Main Controller, defines basic behaviors for others controllers.
  *
  * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
  * @license MIT
- * @package MediasService
+ * @package FilesService
  * @since   1.0.0
  */
 class Controller

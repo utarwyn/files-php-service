@@ -18,20 +18,20 @@ COPY .docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Setup document root
-RUN mkdir -p /var/www/html
-RUN chown -R nobody.nobody /var/www/html && \
+RUN mkdir -p /app
+RUN chown -R nobody.nobody /app && \
   chown -R nobody.nobody /run && \
   chown -R nobody.nobody /var/lib/nginx && \
   chown -R nobody.nobody /var/log/nginx
 
 # Create a new volume
-VOLUME /var/www/html/storage
+VOLUME /app/storage
 
 # Switch to a non-root user
 USER nobody
 
 # Add application
-WORKDIR /var/www/html
+WORKDIR /app
 COPY --chown=nobody . ./
 
 # Install Composer dependencies

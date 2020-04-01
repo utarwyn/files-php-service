@@ -1,4 +1,4 @@
 <?php
 
-namespace MediasServiceTest;
+namespace FilesServiceTest;
 

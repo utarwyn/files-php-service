@@ -1,6 +1,6 @@
 <?php
 
-namespace MediasService\Auth\Token;
+namespace FilesService\Auth\Token;
 
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
@@ -11,7 +11,7 @@ use Firebase\JWT\SignatureInvalidException;
  *
  * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
  * @license MIT
- * @package MediasService\Auth\Token
+ * @package FilesService\Auth\Token
  * @since   1.0.0
  */
 class JWTAuthTokenStrategy implements AuthTokenStrategy
@@ -32,7 +32,7 @@ class JWTAuthTokenStrategy implements AuthTokenStrategy
     public function generate($duration = 3600)
     {
         return JWT::encode([
-            'iss' => 'media_api',
+            'iss' => 'file_api',
             'iat' => time(),
             'exp' => time() + $duration
         ], $this->secret);

@@ -1,39 +1,39 @@
 <?php
 
-namespace MediasService\Media;
+namespace FilesService\File;
 
 /**
- * Represents a media with a type, a path and an identifier.
+ * Represents a file with a type, a path and an identifier.
  *
  * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
  * @license MIT
- * @package MediasService\Media
+ * @package FilesService\File
  * @since   1.0.0
  */
-class Media
+class File
 {
     /**
-     * @var string content of the media
+     * @var string content of the file
      */
     private $content;
 
     /**
-     * @var string identifier of the media
+     * @var string identifier of the file
      */
     private $identifier;
 
     /**
-     * @var string absolute path of the media
+     * @var string absolute path of the file
      */
     private $path;
 
     /**
-     * @var string mime (type) of the media
+     * @var string mime (type) of the file
      */
     private $type;
 
     /**
-     * Media constructor.
+     * File constructor.
      *
      * @param $identifier string
      * @param $path string

@@ -1,29 +1,29 @@
 <?php
 
-namespace MediasService\Media;
+namespace FilesService\File;
 
 use UnexpectedValueException;
 
 /**
- * Class MediaNotExistsException.
- * Thrown when a media cannot be found in a storage.
+ * Class FileNotExistsException.
+ * Thrown when a file cannot be found in a storage.
  *
  * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
  * @license MIT
- * @package MediasService\Media
+ * @package FilesService\File
  * @since   1.0.0
  */
-class MediaNotExistsException extends UnexpectedValueException
+class FileNotExistsException extends UnexpectedValueException
 {
     /**
-     * @var string identifier of the media that does not exist
+     * @var string identifier of the file that does not exist
      */
     private $identifier;
 
     /**
-     * MediaNotExistsException constructor.
+     * FileNotExistsException constructor.
      *
-     * @param $identifier string identifier of the media
+     * @param $identifier string identifier of the file
      */
     public function __construct($identifier)
     {
@@ -32,7 +32,7 @@ class MediaNotExistsException extends UnexpectedValueException
     }
 
     /**
-     * @return string identifier of the media
+     * @return string identifier of the file
      */
     public function getIdentifier()
     {

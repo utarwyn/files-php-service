@@ -1,9 +1,9 @@
 <?php
 
-namespace MediasServiceTest\Unit\Identifier;
+namespace FilesServiceTest\Unit\Identifier;
 
-use MediasService\Identifier\IdentifierStrategy;
-use MediasService\Identifier\UniqueIdentifierStrategy;
+use FilesService\Identifier\IdentifierStrategy;
+use FilesService\Identifier\UniqueIdentifierStrategy;
 use PHPUnit\Framework\TestCase;
 use TypeError;
 

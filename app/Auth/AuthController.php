@@ -1,16 +1,16 @@
 <?php
 
-namespace MediasService\Auth;
+namespace FilesService\Auth;
 
-use MediasService\Auth\Token\AuthTokenStrategyFactory;
-use MediasService\Controller;
+use FilesService\Auth\Token\AuthTokenStrategyFactory;
+use FilesService\Controller;
 
 /**
  * Class AuthController.
  *
  * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
  * @license MIT
- * @package MediasService\Auth
+ * @package FilesService\Auth
  * @since   1.0.0
  */
 class AuthController extends Controller

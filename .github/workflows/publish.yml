@@ -9,7 +9,7 @@ on:
   pull_request:
 
 env:
-  IMAGE_NAME: medias-php-service
+  IMAGE_NAME: files-php-service
 
 jobs:
   test:

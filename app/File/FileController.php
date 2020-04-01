@@ -1,34 +1,34 @@
 <?php
 
-namespace MediasService\Media;
+namespace FilesService\File;
 
-use MediasService\Controller;
-use MediasService\Identifier\IdentifierStrategy;
-use MediasService\Identifier\IdentifierStrategyFactory;
-use MediasService\Storage\Storage;
-use MediasService\Storage\StorageFactory;
-use MediasService\Upload\TooLargeUploadedFileException;
-use MediasService\Upload\UploadedFile;
-use MediasService\Upload\UploadValidator;
-use MediasService\Upload\WrongTypeUploadedFileException;
+use FilesService\Controller;
+use FilesService\Identifier\IdentifierStrategy;
+use FilesService\Identifier\IdentifierStrategyFactory;
+use FilesService\Storage\Storage;
+use FilesService\Storage\StorageFactory;
+use FilesService\Upload\TooLargeUploadedFileException;
+use FilesService\Upload\UploadedFile;
+use FilesService\Upload\UploadValidator;
+use FilesService\Upload\WrongTypeUploadedFileException;
 
 /**
- * Class MediaController.
+ * Class FileController.
  *
  * @author  Maxime Malgorn <maxime.malgorn@laposte.net>
  * @license MIT
- * @package MediasService\Media
+ * @package FilesService\File
  * @since   1.0.0
  */
-class MediaController extends Controller
+class FileController extends Controller
 {
     /**
-     * @var Storage storage wrapper to manage medias
+     * @var Storage storage wrapper to manage files
      */
     private $storage;
 
     /**
-     * @var IdentifierStrategy strategy class to manage media identifiers
+     * @var IdentifierStrategy strategy class to manage file identifiers
      */
     private $identifierStrategy;
 
@@ -38,7 +38,7 @@ class MediaController extends Controller
     private $uploadValidator;
 
     /**
-     * MediaController constructor.
+     * FileController constructor.
      */
     public function __construct()
     {
@@ -48,21 +48,21 @@ class MediaController extends Controller
     }
 
     /**
-     * Manage GET requests to retreive a media.
-     * @param $identifier string identifier of media
+     * Manage GET requests to retreive a file.
+     * @param $identifier string identifier of file
      */
     public function get($identifier)
     {
         $this->validateIdentifier($identifier);
 
         try {
-            $media = $this->storage->getMedia($identifier);
+            $file = $this->storage->getFile($identifier);
 
-            header('Content-Type: ' . $media->getType());
-            $this->sendCacheHeader($media);
+            header('Content-Type: ' . $file->getType());
+            $this->sendCacheHeader($file);
 
-            echo $media->getContent();
-        } catch (MediaNotExistsException $e) {
+            echo $file->getContent();
+        } catch (FileNotExistsException $e) {
             $this->notFound(
                 'UNKNOWN_DOCUMENT',
                 sprintf('File %s does not exist.', $e->getIdentifier())
@@ -84,16 +84,16 @@ class MediaController extends Controller
     }
 
     /**
-     * Send cache headers if needed when displaying a media.
-     * @param $media Media media
+     * Send cache headers if needed when displaying a file.
+     * @param $file File file
      */
-    private function sendCacheHeader($media)
+    private function sendCacheHeader($file)
     {
-        $mtime = @filemtime($media->getPath());
+        $mtime = @filemtime($file->getPath());
 
         if ($mtime > 0) {
             $gmt_mtime = gmdate('D, d M Y H:i:s', $mtime) . ' GMT';
-            $etag = sprintf('%08x-%08x', crc32($media->getPath()), $mtime);
+            $etag = sprintf('%08x-%08x', crc32($file->getPath()), $mtime);
 
             header('ETag: "' . $etag . '"');
             header('Last-Modified: ' . $gmt_mtime);
@@ -119,7 +119,7 @@ class MediaController extends Controller
             $this->uploadValidator->validate($dto);
             $identifier = $this->identifierStrategy->generate();
 
-            $this->storage->storeMedia($identifier, $dto);
+            $this->storage->storeFile($identifier, $dto);
             $this->json(['identifier' => $identifier]);
         } catch (TooLargeUploadedFileException $e) {
             $this->badRequest(
@@ -140,9 +140,9 @@ class MediaController extends Controller
         $this->validateIdentifier($identifier);
 
         try {
-            $this->storage->deleteMedia($identifier);
+            $this->storage->deleteFile($identifier);
             http_response_code(204);
-        } catch (MediaNotExistsException $e) {
+        } catch (FileNotExistsException $e) {
             $this->notFound(
                 'UNKNOWN_DOCUMENT',
                 sprintf('File %s does not exist.', $e->getIdentifier())
