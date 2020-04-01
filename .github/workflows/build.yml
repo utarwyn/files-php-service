@@ -1,4 +1,4 @@
-name: Main workflow
+name: Build
 
 on:
   push:
@@ -23,6 +23,6 @@ jobs:
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
-      
+
     - name: Run code checking and tests
       run: composer run-script test
