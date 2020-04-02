@@ -9,7 +9,7 @@ Works with PHP 5.6+
 <p align="center">
     <a href="https://github.com/utarwyn/files-php-service/actions?query=workflow%3ABuild"><img src="https://github.com/utarwyn/files-php-service/workflows/Build/badge.svg" alt="Publishing status"></a>
     <a href="https://github.com/utarwyn/files-php-service/actions?query=workflow%3APublish"><img src="https://github.com/utarwyn/files-php-service/workflows/Publish/badge.svg" alt="Publishing status"></a>
-    <a href="https://packagist.org/packages/utarwyn/files-php-service"><img src="https://poser.pugx.org/utawyn/files-php-service/v/stable.svg" alt="Latest Stable Version"></a>
+    <a href="https://packagist.org/packages/utarwyn/files-php-service"><img src="https://poser.pugx.org/utarwyn/files-php-service/v/stable.svg" alt="Latest Stable Version"></a>
     <a href="https://github.com/utarwyn/files-php-service/blob/master/LICENSE"><img src="https://poser.pugx.org/utarwyn/files-php-service/license.svg" alt="License"></a>
 </p>
 
