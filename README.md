@@ -13,6 +13,8 @@ Works with PHP 5.6+
     <a href="https://github.com/utarwyn/files-php-service/blob/master/LICENSE"><img src="https://poser.pugx.org/utarwyn/files-php-service/license.svg" alt="License"></a>
 </p>
 
+> ⚠️ This project is deprecated and no longer maintained. We strongly advise you to use [utarwyn/storage-server](https://github.com/utarwyn/storage-server), which is lighter and more secure. We no longer provide support for this tool.
+
 FilesService is a **lightweight self-hosted service** which provides an easy way to manage web-based files.
 It supplies a documented **RESTful API** and an authentication system based on **OAuth2** to store files in a protected bucket.
 
@@ -33,11 +35,6 @@ Use it with Docker
 3. Create a `.env` file based on the `.env.example` in the repository.
 4. Start the Docker container by providing their paths:\
    `docker run -v /home/.env:/app/.env -v /home/storage:/app/storage -p 80:8080 utarwyn/files-php-service`
-
-Documentation
-------------
-
-> Soon!
 
 License
 --------
